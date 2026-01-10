@@ -8,7 +8,7 @@ import Favorites from "../pages/Favorites"
 
 const AppRouter = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/movieapp">
       <Navbar />
 
       <Routes>
