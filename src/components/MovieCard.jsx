@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { useContext } from "react"
-import { FavoritesContext } from "../context/FavoritesContext"
+import { FavoritesContext } from "../context/FavoritesContextValue"
 
 const MovieCard = ({ id, title, poster, year }) => {
   const { favorites, addFavorite, removeFavorite } =
@@ -33,7 +33,7 @@ const MovieCard = ({ id, title, poster, year }) => {
                 transform transition duration-300 hover:scale-105">
 
           <img
-            src={poster !== "N/A" ? poster : "/no-image.png"}
+            src={poster !== "N/A" ? poster : "https://via.placeholder.com/300x450?text=No+Image"}
             alt={title}
             className="w-full h-72 object-cover"
           />

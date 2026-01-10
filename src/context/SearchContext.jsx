@@ -1,6 +1,5 @@
-import { createContext, useState } from "react"
-
-export const SearchContext = createContext()
+import { useState } from "react"
+import { SearchContext } from "./SearchContextValue.jsx"
 
 const SearchProvider = ({ children }) => {
   const [searchText, setSearchText] = useState("")

@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react"
 import MovieCard from "../components/MovieCard"
 import SkeletonCard from "../components/SkeletonCard"
 import { searchMovies } from "../services/omdb"
-import { SearchContext } from "../context/SearchContext"
+import { SearchContext } from "../context/SearchContextValue"
 
 const DEFAULT_QUERIES = [
   "batman",
@@ -37,9 +37,21 @@ const Movies = () => {
 
     const getMovies = async () => {
       setLoading(true)
-      const data = await searchMovies(query, page)
-      setMovies(data.movies)
-      setTotalResults(data.totalResults)
+      try {
+        const data = await searchMovies(query, page)
+        setMovies(data.movies)
+        setTotalResults(data.totalResults)
+      } catch {
+        console.error("API failed, using fallback movies")
+        setMovies([
+          { Title: "Inception", Year: "2010", imdbID: "tt1375666", Poster: "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg" },
+          { Title: "The Dark Knight", Year: "2008", imdbID: "tt0468569", Poster: "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_SX300.jpg" },
+          { Title: "Interstellar", Year: "2014", imdbID: "tt0816692", Poster: "https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg" },
+          { Title: "Parasite", Year: "2019", imdbID: "tt6751668", Poster: "https://m.media-amazon.com/images/M/MV5BYWZjMjEwZTQtNTY4ZS00Njk4LTg1ZjItNDU4ZDMwNjk2YWY3XkEyXkFqcGdeQXVyODIyOTEyMzY@._V1_SX300.jpg" },
+          { Title: "Pulp Fiction", Year: "1994", imdbID: "tt0110912", Poster: "https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2ItYzViMjE3YzI5MjljXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg" }
+        ])
+        setTotalResults(5)
+      }
       setLoading(false)
     }
 

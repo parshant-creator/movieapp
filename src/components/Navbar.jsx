@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { SearchContext } from "../context/SearchContext"
+import { SearchContext } from "../context/SearchContextValue"
 import { Link } from "react-router-dom"
 
 const Navbar = () => {
