@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 
-const API_KEY = "5761eeda"
+const API_KEY = "YOUR_TMDB_API_KEY" // Get from https://www.themoviedb.org/settings/api
 
 const MovieDetails = () => {
   const { id } = useParams()
@@ -15,16 +15,41 @@ const MovieDetails = () => {
     const getMovieDetails = async () => {
       try {
         const res = await fetch(
-          `https://www.omdbapi.com/?i=${id}&apikey=${API_KEY}`
+          `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&append_to_response=credits`
         )
         const data = await res.json()
 
-        if (data.Response === "False") {
-          setError(data.Error)
+        if (data.success === false) {
+          setError(data.status_message)
         } else {
-          setMovie(data)
+          setMovie({
+            Title: data.title,
+            Year: data.release_date ? data.release_date.split('-')[0] : 'N/A',
+            Rated: 'N/A', // TMDB doesn't have rating like OMDB
+            Runtime: data.runtime ? `${data.runtime} min` : 'N/A',
+            Genre: data.genres.map(g => g.name).join(', '),
+            Director: data.credits?.crew.find(c => c.job === 'Director')?.name || 'N/A',
+            Writer: 'N/A',
+            Actors: data.credits?.cast.slice(0, 5).map(a => a.name).join(', ') || 'N/A',
+            Plot: data.overview,
+            Language: data.original_language,
+            Country: 'N/A',
+            Awards: 'N/A',
+            Poster: data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : 'N/A',
+            Ratings: [],
+            Metascore: 'N/A',
+            imdbRating: data.vote_average,
+            imdbVotes: data.vote_count,
+            imdbID: data.imdb_id || id,
+            Type: 'movie',
+            DVD: 'N/A',
+            BoxOffice: 'N/A',
+            Production: 'N/A',
+            Website: 'N/A',
+            Response: 'True'
+          })
         }
-      } catch {
+      } catch (err) {
         setError("Failed to load movie")
       } finally {
         setLoading(false)
