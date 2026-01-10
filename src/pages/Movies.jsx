@@ -41,16 +41,21 @@ const Movies = () => {
         const data = await searchMovies(query, page)
         setMovies(data.movies)
         setTotalResults(data.totalResults)
-      } catch {
-        console.error("API failed, using fallback movies")
+      } catch (error) {
+        console.error("API failed:", error)
         setMovies([
           { Title: "Inception", Year: "2010", imdbID: "tt1375666", Poster: "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg" },
           { Title: "The Dark Knight", Year: "2008", imdbID: "tt0468569", Poster: "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_SX300.jpg" },
           { Title: "Interstellar", Year: "2014", imdbID: "tt0816692", Poster: "https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg" },
           { Title: "Parasite", Year: "2019", imdbID: "tt6751668", Poster: "https://m.media-amazon.com/images/M/MV5BYWZjMjEwZTQtNTY4ZS00Njk4LTg1ZjItNDU4ZDMwNjk2YWY3XkEyXkFqcGdeQXVyODIyOTEyMzY@._V1_SX300.jpg" },
-          { Title: "Pulp Fiction", Year: "1994", imdbID: "tt0110912", Poster: "https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2ItYzViMjE3YzI5MjljXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg" }
+          { Title: "Pulp Fiction", Year: "1994", imdbID: "tt0110912", Poster: "https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2ItYzViMjE3YzI5MjljXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg" },
+          { Title: "The Shawshank Redemption", Year: "1994", imdbID: "tt0111161", Poster: "https://m.media-amazon.com/images/M/MV5BNDE3ODcxYzMtY2YzZC00NmNlLWJiNDMtZDViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_SX300.jpg" },
+          { Title: "Forrest Gump", Year: "1994", imdbID: "tt0109830", Poster: "https://m.media-amazon.com/images/M/MV5BNWIwODRlZTUtY2U3ZS00Yzg1LWJhNzYtMmZiYmEyNmU1NjMzXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg" },
+          { Title: "The Matrix", Year: "1999", imdbID: "tt0133093", Poster: "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg" },
+          { Title: "Titanic", Year: "1997", imdbID: "tt0120338", Poster: "https://m.media-amazon.com/images/M/MV5BMDdmZGU3NDQtY2E5My00ZTliLWIzOTUtMTY4ZGI1YjdiNjk3XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg" },
+          { Title: "Avatar", Year: "2009", imdbID: "tt0499549", Poster: "https://m.media-amazon.com/images/M/MV5BZDA0OGQxNTItMDZkMC00N2UyLTg3MzMtYTJmNjg3Nzk5MzAxXkEyXkFqcGdeQXVyMjUzOTY1NTc@._V1_SX300.jpg" }
         ])
-        setTotalResults(5)
+        setTotalResults(10)
       }
       setLoading(false)
     }
